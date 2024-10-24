@@ -1,0 +1,7 @@
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:t="/lib/hudson">
+    <l:layout title="${my.displayName}" permission="${it.READ}">
+        <h1>${my.displayName}</h1>
+        <p>This is the custom action content for Blackduck.</p>
+        <img src="${rootURL}${my.iconFileName}" alt="Blackduck Logo" />
+    </l:layout>
+</j:jelly>
