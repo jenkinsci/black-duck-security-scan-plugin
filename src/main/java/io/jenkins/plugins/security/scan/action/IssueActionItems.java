@@ -1,31 +1,41 @@
 package io.jenkins.plugins.security.scan.action;
 
 import hudson.model.Action;
-import hudson.model.Job;
-
-public class IssueAction implements Action {
+public class IssueActionItems implements  Action {
     private final String product;
     private final int defectCount;
     private final String issueViewUrl;
 
-    public IssueAction(final String product, final int defectCount, final String issueViewUrl) {
+    public IssueActionItems(String product, int defectCount, String issueViewUrl) {
         this.product = product;
         this.defectCount = defectCount;
         this.issueViewUrl = issueViewUrl;
     }
 
+    public String getProduct() {
+        return product;
+    }
+
+    public int getDefectCount() {
+        return defectCount;
+    }
+
+    public String getIssueViewUrl() {
+        return issueViewUrl;
+    }
+
     @Override
     public String getIconFileName() {
-        return "/plugin/blackduck-security-scan/icons/blackduck.png";
+        return null;
     }
 
     @Override
     public String getDisplayName() {
-        return "See issues in " + product + " (" + defectCount + " found)";
+        return null;
     }
 
     @Override
     public String getUrlName() {
-        return issueViewUrl;
+        return null;
     }
 }

@@ -8,6 +8,7 @@ import hudson.tasks.Builder;
 import hudson.util.ListBoxModel;
 import io.jenkins.plugins.security.scan.ScanInitializer;
 import io.jenkins.plugins.security.scan.SecurityScanner;
+import io.jenkins.plugins.security.scan.action.IssueActionItems;
 import io.jenkins.plugins.security.scan.exception.PluginExceptionHandler;
 import io.jenkins.plugins.security.scan.exception.ScannerException;
 import io.jenkins.plugins.security.scan.extension.SecurityScan;
@@ -1148,6 +1149,20 @@ public class SecurityScanFreestyle extends Builder implements SecurityScan, Free
         String undefinedErrorMessage = null;
         Exception unknownException = new Exception();
         LoggerWrapper logger = new LoggerWrapper(listener);
+
+        String selectedProduct = "";
+        logger.info("---------------------------- ========= " + getProduct());
+
+        if (getProduct().equalsIgnoreCase("polaris")) {
+            selectedProduct = "Polaris";
+        } else if (getProduct().equalsIgnoreCase("blackduck")) {
+            selectedProduct = "Black Duck";
+        } else if ( getProduct().equalsIgnoreCase("coverity")) {
+            selectedProduct = "Coverity Connect";
+        }
+
+        // get defect-count and issue URL
+        run.addAction(new IssueActionItems(selectedProduct, 13, "https://www.blackduck.com/"));
 
         logger.info(
                 "**************************** START EXECUTION OF BLACK DUCK SECURITY SCAN ****************************");

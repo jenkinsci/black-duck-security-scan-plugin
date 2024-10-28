@@ -12,6 +12,7 @@ import hudson.util.ListBoxModel.Option;
 import io.jenkins.plugins.gitlabbranchsource.GitLabSCMSource;
 import io.jenkins.plugins.security.scan.ScanInitializer;
 import io.jenkins.plugins.security.scan.SecurityScanner;
+import io.jenkins.plugins.security.scan.action.IssueActionItems;
 import io.jenkins.plugins.security.scan.exception.PluginExceptionHandler;
 import io.jenkins.plugins.security.scan.exception.ScannerException;
 import io.jenkins.plugins.security.scan.extension.SecurityScan;
@@ -1336,6 +1337,20 @@ public class SecurityScanStep extends Step implements SecurityScan, PrCommentSca
             int exitCode = 0;
             String undefinedErrorMessage = null;
             Exception unknownException = new Exception();
+
+            String selectedProduct = "";
+            logger.info("---------------------------- ========= " + getProduct());
+
+            if (getProduct().equalsIgnoreCase("polaris")) {
+                selectedProduct = "Polaris";
+            } else if (getProduct().equalsIgnoreCase("blackduck")) {
+                selectedProduct = "Black Duck";
+            } else if ( getProduct().equalsIgnoreCase("coverity")) {
+                selectedProduct = "Coverity Connect";
+            }
+
+            // get defect-count and issue URL
+            run.addAction(new IssueActionItems(selectedProduct, 9, "https://www.blackduck.com/"));
 
             logger.println(
                     "**************************** START EXECUTION OF BLACK DUCK SECURITY SCAN ****************************");
